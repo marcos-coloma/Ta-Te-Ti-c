@@ -10,10 +10,6 @@ void int_number_input(int *value_pointer) {
 
     do {
         if (!fgets(buffer, sizeof(buffer), stdin)) {
-            /*
-            error_text_2();
-            exit(1);
-            */ //nose como manejar esto por ahora
             continue;
         }
 
