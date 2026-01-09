@@ -17,7 +17,8 @@
 # to clean use: 		make clean
 
 
-# compiler
+# Default compiler: GCC
+# Change CC if you use another compiler
 CC = gcc 
 
 # Compilation flags:
