@@ -2,41 +2,42 @@
 #include "game.h"
 #include "board.h"
 
-static void game_start(void);
-static void game_loop(void);
-static void game_player_turn(void);
+static void game_start(Board *board);
+static void game_loop(Board *board);
+static void game_player_turn(Board *board);
 static void game_get_move(void);
-static void game_apply_move(void);
+static void game_apply_move(Board *board);
 
 
 
 void game_run(void) {
-    printf("Starting Tic-Tac-Toe...\n");
 
-    game_start();
-    game_loop();
+    Board board;
 
-    printf("Game finished.\n");
+    game_start(&board);
+
+    game_loop(&board);
+
 }
 
 
-static void game_start(void) {
+static void game_start(Board *board) {
     printf("[game_start] Initializing game...\n");
 }
 
 
-static void game_loop(void) {
+static void game_loop(Board *board) {
     printf("[game_loop] Entering main loop...\n");
 
     // por ahora una sola iteración
-    game_player_turn();
+    game_player_turn(board);
 }
 
-static void game_player_turn(void) {
+static void game_player_turn(Board *board) {
     printf("[game_player_turn] Player's turn\n");
 
     game_get_move();
-    game_apply_move();
+    game_apply_move(board);
 }
 
 
@@ -44,6 +45,6 @@ static void game_get_move(void) {
     printf("[game_get_move] Getting player input...\n");
 }
 
-static void game_apply_move(void) {
+static void game_apply_move(Board *board) {
     printf("[game_apply_move] Applying move to board...\n");
 }
