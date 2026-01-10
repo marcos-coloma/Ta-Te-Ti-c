@@ -10,17 +10,16 @@ int board_init(Board *board, int size) {
     board->cells = NULL;
     board->size = size;
 
-    return 1; // success (placeholder)
+    return 1;
 }
 
 void board_free(Board *board) {
     printf("[board_free]\n");
 
-    (void)board; // evita warning por parámetro no usado
+    (void)board;
 }
 
 /* visualization */
-
 void board_print(const Board *board) {
     printf("[board_print] size = %d\n", board->size);
 }
@@ -31,7 +30,7 @@ int board_place(Board *board, int row, int col, char symbol) {
     printf("[board_place] row=%d col=%d symbol=%c\n", row, col, symbol);
 
     (void)board;
-    return 1; // success (placeholder)
+    return 1;
 }
 
 int board_is_empty(const Board *board, int row, int col) {
@@ -42,7 +41,6 @@ int board_is_empty(const Board *board, int row, int col) {
 }
 
 /* helpers */
-
 int board_in_bounds(const Board *board, int row, int col) {
     printf("[board_in_bounds] row=%d col=%d size=%d\n",
         row, col, board->size);
