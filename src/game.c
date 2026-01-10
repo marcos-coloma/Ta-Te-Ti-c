@@ -15,7 +15,6 @@ void game_run(void) {
     Board board;
 
     game_start(&board);
-
     game_loop(&board);
 
 }
@@ -23,15 +22,26 @@ void game_run(void) {
 
 static void game_start(Board *board) {
     printf("[game_start] Initializing game...\n");
+
+    board_init(board, 3);
+    board_print(board);
 }
 
 
 static void game_loop(Board *board) {
     printf("[game_loop] Entering main loop...\n");
 
-    // por ahora una sola iteración
-    game_player_turn(board);
+    int running = 1;
+
+    while (running) {
+        game_player_turn(board);
+        running = 0; // temporal
+    }
 }
+
+
+
+
 
 static void game_player_turn(Board *board) {
     printf("[game_player_turn] Player's turn\n");
