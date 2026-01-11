@@ -25,7 +25,6 @@ int board_init(Board *board, int size) {
     return 1;
 }
 
-
 void board_free(Board *board) {
 
     if (!board) {
@@ -37,41 +36,62 @@ void board_free(Board *board) {
     board->size = 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
 void board_print(const Board *board) {
-    printf("[board_print] size = %d\n", board->size);
+
+    if (!board || !board->cells) {
+        printf("[board_print] invalid board\n");
+        return;
+    }
+
+    printf("\n");
+
+    for (int row = 0; row < board->size; row++) {
+        for (int col = 0; col < board->size; col++) {
+            int index = row * board->size + col;
+            printf("%c ", board->cells[index]);
+        }
+        printf("\n");
+    }
+
+    printf("\n");
 }
 
-/* interaction */
-
 int board_place(Board *board, int row, int col, char symbol) {
-    printf("[board_place] row=%d col=%d symbol=%c\n", row, col, symbol);
+    if (!board || !board->cells) {
+        return 0;
+    }
 
-    (void)board;
+    if (!board_in_bounds(board, row, col)) {
+        printf("[board_place] invalid move: out of bounds\n");
+        return 0;
+    }
+
+    if (!board_is_empty(board, row, col)) {
+        printf("[board_place] invalid move: cell not empty\n");
+        return 0;
+    }
+
+    int index = row * board->size + col;
+    board->cells[index] = symbol;
+
     return 1;
 }
 
-int board_is_empty(const Board *board, int row, int col) {
-    printf("[board_is_empty] row=%d col=%d\n", row, col);
 
-    (void)board;
-    return 1; // assume empty
+int board_is_empty(const Board *board, int row, int col) {
+    if (!board || !board->cells) return 0;
+
+    if (!board_in_bounds(board, row, col)) return 0;
+
+    int index = row * board->size + col;
+    return board->cells[index] == '.';
 }
 
-/* helpers */
 int board_in_bounds(const Board *board, int row, int col) {
-    printf("[board_in_bounds] row=%d col=%d size=%d\n",
-        row, col, board->size);
+    if (!board) return 0;
 
-    return 1; // assume valid
+    if (row < 0 || row >= board->size) return 0;
+    if (col < 0 || col >= board->size) return 0;
+
+    return 1;
 }
