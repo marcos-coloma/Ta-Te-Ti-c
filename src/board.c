@@ -2,24 +2,52 @@
 #include <stdlib.h>
 #include "board.h"
 
-/* lifecycle */
+
 
 int board_init(Board *board, int size) {
-    printf("[board_init] size = %d\n", size);
+    
+    if (!board || size <= 0) {
+        return 0;
+    }
 
-    board->cells = NULL;
     board->size = size;
+    board->cells = malloc(size * size * sizeof(char));
+
+    if (!board->cells) {
+        board->size = 0;
+        return 0;
+    }
+
+    for (int i = 0; i < size * size; i++) {
+        board->cells[i] = '.';
+    }
 
     return 1;
 }
 
-void board_free(Board *board) {
-    printf("[board_free]\n");
 
-    (void)board;
+void board_free(Board *board) {
+
+    if (!board) {
+        return;
+    }
+
+    free(board->cells);
+    board->cells = NULL;
+    board->size = 0;
 }
 
-/* visualization */
+
+
+
+
+
+
+
+
+
+
+
 void board_print(const Board *board) {
     printf("[board_print] size = %d\n", board->size);
 }
