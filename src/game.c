@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include "game.h"
 #include "board.h"
+#include "input.h"
 
 static void game_start(Board *board);
 static void game_loop(Board *board);
 static void game_player_turn(Board *board);
-static void game_get_move(void);
-static void game_apply_move(Board *board);
+static void game_get_move(int *row, int *col);
+static void game_apply_move(Board *board, int row, int col);
 
 
 
@@ -40,21 +41,30 @@ static void game_loop(Board *board) {
 }
 
 
-
-
-
 static void game_player_turn(Board *board) {
     printf("[game_player_turn] Player's turn\n");
 
-    game_get_move();
-    game_apply_move(board);
+    int row, col;
+
+    game_get_move(&row, &col);
+    game_apply_move(board, row, col);
+    board_print(board);
 }
 
 
-static void game_get_move(void) {
+static void game_get_move(int *row, int *col) {
     printf("[game_get_move] Getting player input...\n");
+
+    printf("Enter row: ");
+    int_number_input(row);
+
+    printf("Enter column: ");
+    int_number_input(col);
 }
 
-static void game_apply_move(Board *board) {
+
+static void game_apply_move(Board *board, int row, int col) {
     printf("[game_apply_move] Applying move to board...\n");
+
+    board_place(board, row, col, 'X');
 }
