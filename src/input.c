@@ -18,15 +18,15 @@ void int_number_input(int *value_pointer) {
 
 
         if (endpointer == buffer) {
-            error_text();
+            input_error();
             continue;
         }
         if (!(*endpointer == '\n' || *endpointer == '\0')) {
-            error_text();
+            input_error();
             continue;
         }
         if (value < INT_MIN || value > INT_MAX) {
-            error_text();
+            input_error();
             continue;
         }
 

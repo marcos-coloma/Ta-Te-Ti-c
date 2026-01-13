@@ -2,6 +2,7 @@
 #include "game.h"
 #include "board.h"
 #include "input.h"
+#include "messages.h"
 
 static void game_start(Board *board);
 static void game_loop(Board *board);
@@ -13,6 +14,8 @@ static int game_apply_move(Board *board, int row, int col, char player);
 
 void game_run(void) {
 
+    msg_title();
+
     Board board;
 
     game_start(&board);
@@ -21,9 +24,11 @@ void game_run(void) {
 }
 
 static void game_start(Board *board) {
-    printf("[game_start] Initializing game...\n");
+    int size = 3;
 
-    board_init(board, 3);
+    msg_game_start(size);
+
+    board_init(board, size);
     board_print(board);
 }
 
@@ -39,23 +44,23 @@ static void game_loop(Board *board) {
 }
 
 static int game_player_turn(Board *board, char player) {
-    printf("[game_player_turn] Player %c turn\n", player);
+
 
     int row, col;
 
-    game_get_move(&row, &col);
+    msg_player_turn(player);
 
-    if (!game_apply_move(board, row, col, player)) {
-        printf("Invalid move. Try again.\n");
-        return 1; // mismo jugador
-    }
+    do {
+        game_get_move(&row, &col);
+    } while (!game_apply_move(board, row, col, player));
 
     board_print(board);
     return 1;
 }
 
 static void game_get_move(int *row, int *col) {
-    printf("[game_get_move] Getting player input...\n");
+
+    msg_get_move();
 
     printf("Enter row: ");
     int_number_input(row);
@@ -65,6 +70,5 @@ static void game_get_move(int *row, int *col) {
 }
 
 static int game_apply_move(Board *board, int row, int col, char player) {
-    printf("[game_apply_move] Applying move to board...\n");
     return board_place(board, row, col, player);
 }

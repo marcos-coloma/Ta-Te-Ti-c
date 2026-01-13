@@ -39,11 +39,11 @@ void board_free(Board *board) {
 void board_print(const Board *board) {
 
     if (!board || !board->cells) {
-        printf("[board_print] invalid board\n");
+        msg_invalid_board();
         return;
     }
 
-    printf("\n");
+    msg_show_board();
 
     for (int row = 0; row < board->size; row++) {
         for (int col = 0; col < board->size; col++) {
@@ -53,7 +53,7 @@ void board_print(const Board *board) {
         printf("\n");
     }
 
-    printf("\n");
+    msg_after_board();
 }
 
 int board_place(Board *board, int row, int col, char symbol) {
@@ -62,12 +62,12 @@ int board_place(Board *board, int row, int col, char symbol) {
     }
 
     if (!board_in_bounds(board, row, col)) {
-        printf("[board_place] invalid move: out of bounds\n");
+        msg_board_in_bounds();
         return 0;
     }
 
     if (!board_is_empty(board, row, col)) {
-        printf("[board_place] invalid move: cell not empty\n");
+        msg_board_is_empty();
         return 0;
     }
 
@@ -76,7 +76,6 @@ int board_place(Board *board, int row, int col, char symbol) {
 
     return 1;
 }
-
 
 int board_is_empty(const Board *board, int row, int col) {
     if (!board || !board->cells) return 0;
