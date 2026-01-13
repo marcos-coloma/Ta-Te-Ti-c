@@ -5,9 +5,9 @@
 
 static void game_start(Board *board);
 static void game_loop(Board *board);
-static void game_player_turn(Board *board);
+static int game_player_turn(Board *board, char player);
 static void game_get_move(int *row, int *col);
-static void game_apply_move(Board *board, int row, int col);
+static int game_apply_move(Board *board, int row, int col, char player);
 
 
 
@@ -20,7 +20,6 @@ void game_run(void) {
 
 }
 
-
 static void game_start(Board *board) {
     printf("[game_start] Initializing game...\n");
 
@@ -28,29 +27,32 @@ static void game_start(Board *board) {
     board_print(board);
 }
 
-
 static void game_loop(Board *board) {
-    printf("[game_loop] Entering main loop...\n");
 
+    char current_player = 'X';
     int running = 1;
 
     while (running) {
-        game_player_turn(board);
-        running = 0; // temporal
+        running = game_player_turn(board, current_player);
+        current_player = (current_player == 'X') ? 'O' : 'X';
     }
 }
 
-
-static void game_player_turn(Board *board) {
-    printf("[game_player_turn] Player's turn\n");
+static int game_player_turn(Board *board, char player) {
+    printf("[game_player_turn] Player %c turn\n", player);
 
     int row, col;
 
     game_get_move(&row, &col);
-    game_apply_move(board, row, col);
-    board_print(board);
-}
 
+    if (!game_apply_move(board, row, col, player)) {
+        printf("Invalid move. Try again.\n");
+        return 1; // mismo jugador
+    }
+
+    board_print(board);
+    return 1;
+}
 
 static void game_get_move(int *row, int *col) {
     printf("[game_get_move] Getting player input...\n");
@@ -62,9 +64,7 @@ static void game_get_move(int *row, int *col) {
     int_number_input(col);
 }
 
-
-static void game_apply_move(Board *board, int row, int col) {
+static int game_apply_move(Board *board, int row, int col, char player) {
     printf("[game_apply_move] Applying move to board...\n");
-
-    board_place(board, row, col, 'X');
+    return board_place(board, row, col, player);
 }
