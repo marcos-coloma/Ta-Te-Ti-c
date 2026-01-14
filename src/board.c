@@ -48,14 +48,23 @@ void board_print(const Board *board) {
     for (int row = 0; row < board->size; row++) {
         for (int col = 0; col < board->size; col++) {
             int index = row * board->size + col;
-            printf("%c ", board->cells[index]);
+            char cell = board->cells[index];
+
+            if (cell == 'X') {
+                PRINT_X; 
+                printf(" ");  // espacio entre celdas
+            } else if (cell == 'O') {
+                PRINT_O;
+                printf(" ");
+            } else {
+                printf("%c ", cell);  // celda vacía
+            }
         }
         printf("\n");
     }
 
     msg_after_board();
 }
-
 //-------------------------------------------------//
 
 int board_place(Board *board, int row, int col, char symbol) {

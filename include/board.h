@@ -1,6 +1,13 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+#define RED     "\033[31m"
+#define BLUE    "\033[34m"
+#define RESET   "\033[0m"
+
+#define PRINT_X printf(RED "X" RESET)
+#define PRINT_O printf(BLUE "O" RESET)
+
 typedef struct {
     char *cells;
     int size;

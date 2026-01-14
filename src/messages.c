@@ -2,13 +2,14 @@
 #include "messages.h"
 
 void input_error(void) {
-    printf("Invalid number. Remember to enter an integer within the allowed range: ");
+    printf("Invalid number. Remember to enter an integer within the allowed range\n");
+    printf("Please try again: ");
 }
 
 void msg_title(void) {
-    printf("==============\n");
-    printf("TIC- TAC - TOE\n");
-    printf("==============\n\n");
+    printf("==============================\n");
+    printf(" Welcome to Tic-Tac-Toe in C!\n");
+    printf("==============================\n\n");
 }
 
 void msg_game_start(int size) {
@@ -50,4 +51,10 @@ void msg_player_wins(char player) {
 
 void msg_game_draw(void) {
     printf("\nIt's a draw!\n");
+}
+
+void msg_board_size(void){
+    printf("-You can choose the size of your board.\n");
+    printf("-The size of the board can be between 3 and 7\n\n");
+    printf("\nEnter the board size: ");
 }

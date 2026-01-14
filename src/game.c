@@ -24,7 +24,17 @@ void game_run(void) {
 }
 
 static void game_start(Board *board) {
-    int size = 3;
+    int size;
+    msg_board_size();
+
+    do {
+        int_number_input(&size);
+
+        if (size < 3 || size > 7) {
+            input_error(); 
+        }
+        
+    } while (size < 3 || size > 7);
 
     msg_game_start(size);
 
