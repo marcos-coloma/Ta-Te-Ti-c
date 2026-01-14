@@ -45,7 +45,6 @@ static void game_loop(Board *board) {
 
 static int game_player_turn(Board *board, char player) {
 
-
     int row, col;
 
     msg_player_turn(player);
@@ -67,6 +66,9 @@ static void game_get_move(int *row, int *col) {
 
     printf("Enter column: ");
     int_number_input(col);
+
+    (*row)--;
+    (*col)--;
 }
 
 static int game_apply_move(Board *board, int row, int col, char player) {

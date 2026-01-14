@@ -6,7 +6,7 @@ void input_error(void) {
 }
 
 void msg_title(void) {
-    printf("==============\n\n");
+    printf("==============\n");
     printf("TIC- TAC - TOE\n");
     printf("==============\n\n");
 }
