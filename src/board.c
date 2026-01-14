@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "board.h"
-
+#include "messages.h"
 
 
 int board_init(Board *board, int size) {
@@ -56,6 +56,8 @@ void board_print(const Board *board) {
     msg_after_board();
 }
 
+//-------------------------------------------------//
+
 int board_place(Board *board, int row, int col, char symbol) {
     if (!board || !board->cells) {
         return 0;
@@ -91,6 +93,58 @@ int board_in_bounds(const Board *board, int row, int col) {
 
     if (row < 0 || row >= board->size) return 0;
     if (col < 0 || col >= board->size) return 0;
+
+    return 1;
+}
+
+//-------------------------------------------------//
+
+int board_check_winner(const Board *board, char player) {
+    int size = board->size;
+
+    for (int r = 0; r < size; r++) {
+        int count = 0;
+        for (int c = 0; c < size; c++) {
+            if (board->cells[r * size + c] == player)
+                count++;
+        }
+        if (count == size) return 1;
+    }
+
+    for (int c = 0; c < size; c++) {
+        int count = 0;
+        for (int r = 0; r < size; r++) {
+            if (board->cells[r * size + c] == player)
+                count++;
+        }
+        if (count == size) return 1;
+    }
+
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (board->cells[i * size + i] == player)
+            count++;
+    }
+    if (count == size) return 1;
+
+    count = 0;
+    for (int i = 0; i < size; i++) {
+        if (board->cells[i * size + (size - 1 - i)] == player)
+            count++;
+    }
+    if (count == size) return 1;
+
+    return 0;
+}
+
+int board_is_full(const Board *board) {
+    int size = board->size;
+
+    for (int i = 0; i < size * size; i++) {
+        if (board->cells[i] == '.') {
+            return 0;
+        }
+    }
 
     return 1;
 }

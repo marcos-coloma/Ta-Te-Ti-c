@@ -43,3 +43,11 @@ void msg_board_in_bounds(void) {
 void msg_board_is_empty(void) {
     printf("Invalid move: this cell is already occupied.\n");
 }
+
+void msg_player_wins(char player) {
+    printf("\nPlayer %c wins! Congratulations!\n", player);
+}
+
+void msg_game_draw(void) {
+    printf("\nIt's a draw!\n");
+}

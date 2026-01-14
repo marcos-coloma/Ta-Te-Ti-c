@@ -11,5 +11,7 @@ void msg_show_board(void);
 void msg_after_board(void);
 void msg_board_in_bounds(void);
 void msg_board_is_empty(void);
+void msg_player_wins(char player);
+void msg_game_draw(void);
 
 #endif

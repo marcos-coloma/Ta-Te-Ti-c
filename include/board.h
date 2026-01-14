@@ -20,4 +20,8 @@ int board_is_empty(const Board *board, int row, int col);
 /* helpers */
 int board_in_bounds(const Board *board, int row, int col);
 
+/* results */
+int board_check_winner(const Board *board, char player);
+int board_is_full(const Board *board);
+
 #endif

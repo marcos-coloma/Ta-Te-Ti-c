@@ -10,7 +10,7 @@ static int game_player_turn(Board *board, char player);
 static void game_get_move(int *row, int *col);
 static int game_apply_move(Board *board, int row, int col, char player);
 
-
+//-------------------------------------------------//
 
 void game_run(void) {
 
@@ -43,6 +43,8 @@ static void game_loop(Board *board) {
     }
 }
 
+//-------------------------------------------------//
+
 static int game_player_turn(Board *board, char player) {
 
     int row, col;
@@ -53,7 +55,18 @@ static int game_player_turn(Board *board, char player) {
         game_get_move(&row, &col);
     } while (!game_apply_move(board, row, col, player));
 
-    board_print(board);
+        board_print(board);
+    
+    if (board_check_winner(board, player)) {
+        msg_player_wins(player);
+        return 0;
+    }
+
+    if (board_is_full(board)) {
+        msg_game_draw();
+        return 0;
+    }
+
     return 1;
 }
 
@@ -74,3 +87,5 @@ static void game_get_move(int *row, int *col) {
 static int game_apply_move(Board *board, int row, int col, char player) {
     return board_place(board, row, col, player);
 }
+
+
