@@ -7,6 +7,7 @@ void input_error(void) {
 }
 
 void msg_title(void) {
+    printf("\n\n\n\n\n");
     printf("==============================\n");
     printf(" Welcome to Tic-Tac-Toe in C!\n");
     printf("==============================\n\n");
@@ -60,7 +61,7 @@ void msg_board_size(void){
 }
 
 void msg_end(void){
-    printf("\n==============================\n");
+    printf("\n\n\n==============================\n");
     printf(" Match finished!\n");
     printf("==============================\n");
     printf("Play again?\n");
