@@ -21,6 +21,8 @@ void game_run(void) {
 
     while (1) {
 
+        msg_title();
+
         GameMode mode = game_menu();
 
         if (mode == GAME_EXIT) {
@@ -29,7 +31,6 @@ void game_run(void) {
 
         Board board;
 
-        msg_title();
         game_start(&board);
 
         switch (mode) {
@@ -87,21 +88,6 @@ static void game_start(Board *board) {
     board_print(board);
 }
 
-static void pvp_game_loop(Board *board) {
-
-    char current_player = 'X';
-    int running = 1;
-
-    while (running) {
-        running = game_player_turn(board, current_player);
-        current_player = (current_player == 'X') ? 'O' : 'X';
-    }
-}
-
-static void pvc_game_loop(Board *board){
-    msg_not_implemented();
-}
-
 static int game_end(void) {
     int choice;
 
@@ -116,6 +102,24 @@ static int game_end(void) {
     } while (choice != 0 && choice != 1);
 
     return choice == 1;
+}
+
+//-------------------------------------------------//
+
+static void pvp_game_loop(Board *board) {
+
+    char current_player = 'X';
+    int running = 1;
+
+    while (running) {
+        running = game_player_turn(board, current_player);
+        current_player = (current_player == 'X') ? 'O' : 'X';
+    }
+}
+
+static void pvc_game_loop(Board *board){
+    (void)board;
+    msg_not_implemented();
 }
 
 //-------------------------------------------------//

@@ -27,6 +27,11 @@ void msg_game_menu(void){
     printf("Your choice: ");
 }
 
+void msg_not_implemented(void){
+    printf("   Mode not implemented yet  \n");
+    printf("   Coming soon...\n");
+}
+
 void msg_end(void){
     printf("\n\n\n");
     printf("==============================\n");

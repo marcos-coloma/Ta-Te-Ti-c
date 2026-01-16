@@ -3,7 +3,9 @@
 
 void input_error(void);
 void msg_title(void);
+void msg_game_menu(void);
 void msg_game_start(int size);
+void msg_not_implemented(void);
 void msg_end(void);
 void msg_player_turn(char player);
 void msg_get_move(void);
