@@ -58,3 +58,13 @@ void msg_board_size(void){
     printf("-The size of the board can be between 3 and 7\n\n");
     printf("\nEnter the board size: ");
 }
+
+void msg_end(void){
+    printf("\n==============================\n");
+    printf(" Match finished!\n");
+    printf("==============================\n");
+    printf("Play again?\n");
+    printf("1 - Yes\n");
+    printf("0 - Exit\n");
+    printf("Your choice: ");
+}

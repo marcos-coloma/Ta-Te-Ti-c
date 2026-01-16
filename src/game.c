@@ -14,13 +14,32 @@ static int game_apply_move(Board *board, int row, int col, char player);
 
 void game_run(void) {
 
-    msg_title();
+    while (1) {
 
-    Board board;
+        msg_title();
 
-    game_start(&board);
-    game_loop(&board);
+        Board board;
 
+        game_start(&board);
+        game_loop(&board);
+
+        int choice;
+
+        do {
+
+            msg_end();
+            int_number_input(&choice);
+
+            if (choice != 0 && choice != 1) {
+                input_error();
+            }
+
+        } while (choice != 0 && choice != 1);
+
+        if (choice == 0) {
+            break;
+        }
+    }
 }
 
 static void game_start(Board *board) {
