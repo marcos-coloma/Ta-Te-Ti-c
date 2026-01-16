@@ -17,6 +17,27 @@ void msg_game_start(int size) {
     printf("Starting game (%dx%d board)\n\n", size, size);
 }
 
+void msg_game_menu(void){
+    printf("Select game mode:\n");
+    printf("\n");
+    printf("0 - Player vs Player\n");
+    printf("1 - Player vs Computer\n");
+    printf("2 - Exit\n");
+    printf("\n");
+    printf("Your choice: ");
+}
+
+void msg_end(void){
+    printf("\n\n\n");
+    printf("==============================\n");
+    printf(" Match finished!\n");
+    printf("==============================\n");
+    printf("Play again?\n");
+    printf("1 - Yes\n");
+    printf("0 - Exit\n");
+    printf("Your choice: ");
+}
+
 void msg_player_turn(char player) {
     printf("\n--- Player %c ---\n", player);
 }
@@ -30,8 +51,7 @@ void msg_invalid_board(void) {
 }
 
 void msg_show_board(void) {
-    printf("\n");
-    printf("=== Current Board ===\n\n");
+    printf("\n=== Current Board ===\n\n");
 }
 
 void msg_after_board(void) {
@@ -60,12 +80,3 @@ void msg_board_size(void){
     printf("\nEnter the board size: ");
 }
 
-void msg_end(void){
-    printf("\n\n\n==============================\n");
-    printf(" Match finished!\n");
-    printf("==============================\n");
-    printf("Play again?\n");
-    printf("1 - Yes\n");
-    printf("0 - Exit\n");
-    printf("Your choice: ");
-}

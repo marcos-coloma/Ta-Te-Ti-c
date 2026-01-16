@@ -4,12 +4,16 @@
 #include "input.h"
 #include "messages.h"
 
+static GameMode game_menu(void);
 static void game_start(Board *board);
-static void game_loop(Board *board);
+static void pvp_game_loop(Board *board);
+static void pvc_game_loop(Board *board);
+static int game_end(void);
+
 static int game_player_turn(Board *board, char player);
 static void game_get_move(int *row, int *col);
 static int game_apply_move(Board *board, int row, int col, char player);
-static int game_end(void);
+
 
 //-------------------------------------------------//
 
@@ -17,11 +21,30 @@ void game_run(void) {
 
     while (1) {
 
+        GameMode mode = game_menu();
+
+        if (mode == GAME_EXIT) {
+            break;
+        }
+
         Board board;
-        
+
         msg_title();
         game_start(&board);
-        game_loop(&board);
+
+        switch (mode) {
+            case GAME_PVP:
+                pvp_game_loop(&board);
+                break;
+
+            case GAME_PVC:
+                pvc_game_loop(&board);
+                break;
+
+            default:
+                input_error();
+                break;
+        }
 
         if (!game_end()) {
             break;
@@ -29,9 +52,25 @@ void game_run(void) {
     }
 }
 
+static GameMode game_menu(void) {
+    int choice;
+
+    while (1) {
+        msg_game_menu();
+        int_number_input(&choice);
+
+        if (choice >= 0 && choice <= 2) {
+            return (GameMode)choice;
+        }
+
+        input_error();
+    }
+}
+
 static void game_start(Board *board) {
     int size;
     msg_board_size();
+
 
     do {
         int_number_input(&size);
@@ -42,13 +81,13 @@ static void game_start(Board *board) {
         
     } while (size < 3 || size > 7);
 
-    msg_game_start(size);
 
+    msg_game_start(size);
     board_init(board, size);
     board_print(board);
 }
 
-static void game_loop(Board *board) {
+static void pvp_game_loop(Board *board) {
 
     char current_player = 'X';
     int running = 1;
@@ -57,6 +96,10 @@ static void game_loop(Board *board) {
         running = game_player_turn(board, current_player);
         current_player = (current_player == 'X') ? 'O' : 'X';
     }
+}
+
+static void pvc_game_loop(Board *board){
+    msg_not_implemented();
 }
 
 static int game_end(void) {
