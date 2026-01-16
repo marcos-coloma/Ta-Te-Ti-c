@@ -9,6 +9,7 @@ static void game_loop(Board *board);
 static int game_player_turn(Board *board, char player);
 static void game_get_move(int *row, int *col);
 static int game_apply_move(Board *board, int row, int col, char player);
+static int game_end(void);
 
 //-------------------------------------------------//
 
@@ -16,27 +17,13 @@ void game_run(void) {
 
     while (1) {
 
-        msg_title();
-
         Board board;
-
+        
+        msg_title();
         game_start(&board);
         game_loop(&board);
 
-        int choice;
-
-        do {
-
-            msg_end();
-            int_number_input(&choice);
-
-            if (choice != 0 && choice != 1) {
-                input_error();
-            }
-
-        } while (choice != 0 && choice != 1);
-
-        if (choice == 0) {
+        if (!game_end()) {
             break;
         }
     }
@@ -70,6 +57,22 @@ static void game_loop(Board *board) {
         running = game_player_turn(board, current_player);
         current_player = (current_player == 'X') ? 'O' : 'X';
     }
+}
+
+static int game_end(void) {
+    int choice;
+
+    do {
+        msg_end();
+        int_number_input(&choice);
+
+        if (choice != 0 && choice != 1) {
+            input_error();
+        }
+
+    } while (choice != 0 && choice != 1);
+
+    return choice == 1;
 }
 
 //-------------------------------------------------//
