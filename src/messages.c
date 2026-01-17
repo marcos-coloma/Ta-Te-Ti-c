@@ -88,3 +88,9 @@ void msg_board_size(void){
 void msg_cpu_turn(char cpu_player) {
     printf("\nCPU turn (%c)\n", cpu_player);
 }
+
+void msg_choose_player(void) {
+    printf("\nChoose starting player:\n");
+    printf("1) X\n");
+    printf("2) O\n");
+}

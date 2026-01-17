@@ -17,6 +17,7 @@ void msg_board_is_empty(void);
 void msg_player_wins(char player);
 void msg_game_draw(void);
 void msg_board_size(void);
+void msg_choose_player(void);
 void msg_cpu_turn(char cpu_player);
 
 #endif
