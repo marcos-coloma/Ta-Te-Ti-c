@@ -5,16 +5,21 @@
 #include "messages.h"
 
 static GameMode game_menu(void);
+static AIDifficulty game_choose_ai_difficulty(void);
+
 static void game_start(Board *board);
-static void pvp_game_loop(Board *board, char starting_player);
-static void pvc_game_loop(Board *board, char human_player);
+static char game_choose_starting_player(void);
 static int game_end(void);
 
-static char game_choose_starting_player(void);
+static void pvp_game_loop(Board *board, char starting_player);
+static void pvc_game_loop(Board *board, char human_player, AIDifficulty difficulty);
 
 static int game_player_turn(Board *board, char player);
 static void game_get_move(int *row, int *col);
 static int game_apply_move(Board *board, int row, int col, char player);
+
+static void cpu_easy(Board *board, char cpu_player);
+static void cpu_normal(Board *board, char cpu_player);
 
 
 //-------------------------------------------------//
@@ -42,9 +47,11 @@ void game_run(void) {
                 pvp_game_loop(&board, starting_player);
                 break;
 
-            case GAME_PVC:
-                pvc_game_loop(&board, starting_player);
+            case GAME_PVC: {
+                AIDifficulty difficulty = game_choose_ai_difficulty();
+                pvc_game_loop(&board, starting_player, difficulty);
                 break;
+            }
 
             default:
                 input_error();
@@ -56,6 +63,8 @@ void game_run(void) {
         }
     }
 }
+
+//-------------------------------------------------//
 
 static GameMode game_menu(void) {
     int choice;
@@ -71,6 +80,21 @@ static GameMode game_menu(void) {
         input_error();
     }
 }
+
+static AIDifficulty game_choose_ai_difficulty(void) {
+    int choice;
+
+    while (1) {
+        msg_choose_difficulty();
+        int_number_input(&choice);
+
+        if (choice >= 0 && choice <= 2)
+            return (AIDifficulty)choice;
+
+        input_error();
+    }
+}
+
 
 static void game_start(Board *board) {
     int size;
@@ -135,7 +159,7 @@ static void pvp_game_loop(Board *board, char starting_player) {
     }
 }
 
-static void pvc_game_loop(Board *board, char human_player) {
+static void pvc_game_loop(Board *board, char human_player, AIDifficulty difficulty) {
 
     char cpu_player = (human_player == 'X') ? 'O' : 'X';
     char current_player = 'X';
@@ -148,9 +172,22 @@ static void pvc_game_loop(Board *board, char human_player) {
         } 
         else {
             msg_cpu_turn(cpu_player);
-            //not finished
-            msg_not_implemented();
-            return;
+
+            switch (difficulty) {
+                case AI_EASY:
+                    cpu_easy(board, cpu_player);
+                    break;
+
+                case AI_NORMAL:
+                    cpu_normal(board, cpu_player);
+                    break;
+
+                case AI_HARD:
+                    msg_not_implemented();
+                    return;
+            }
+
+            board_print(board);
         }
 
         current_player = (current_player == 'X') ? 'O' : 'X';

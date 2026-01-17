@@ -94,3 +94,10 @@ void msg_choose_player(void) {
     printf("1) X\n");
     printf("2) O\n");
 }
+
+void msg_choose_difficulty(void) {
+    printf("\nChoose AI difficulty:\n");
+    printf("0) Easy   (random moves)\n");
+    printf("1) Normal (tries to win / block)\n");
+    printf("2) Hard   (coming soon)\n");
+}

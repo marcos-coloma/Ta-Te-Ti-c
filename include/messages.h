@@ -19,5 +19,6 @@ void msg_game_draw(void);
 void msg_board_size(void);
 void msg_choose_player(void);
 void msg_cpu_turn(char cpu_player);
+void msg_choose_difficulty(void);
 
 #endif

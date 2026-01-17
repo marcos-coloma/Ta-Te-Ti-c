@@ -6,6 +6,12 @@ typedef enum {
     GAME_EXIT = 2
 } GameMode;
 
+typedef enum {
+    AI_EASY = 0,
+    AI_NORMAL,
+    AI_HARD
+} AIDifficulty;
+
 void game_run(void);
 
 #endif
