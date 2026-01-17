@@ -6,9 +6,11 @@
 
 static GameMode game_menu(void);
 static void game_start(Board *board);
-static void pvp_game_loop(Board *board);
-static void pvc_game_loop(Board *board);
+static void pvp_game_loop(Board *board, char starting_player);
+static void pvc_game_loop(Board *board, char human_player);
 static int game_end(void);
+
+static char game_choose_starting_player(void);
 
 static int game_player_turn(Board *board, char player);
 static void game_get_move(int *row, int *col);
@@ -33,13 +35,15 @@ void game_run(void) {
 
         game_start(&board);
 
+        char starting_player = game_choose_starting_player();
+
         switch (mode) {
             case GAME_PVP:
-                pvp_game_loop(&board);
+                pvp_game_loop(&board, starting_player);
                 break;
 
             case GAME_PVC:
-                pvc_game_loop(&board);
+                pvc_game_loop(&board, starting_player);
                 break;
 
             default:
@@ -88,6 +92,20 @@ static void game_start(Board *board) {
     board_print(board);
 }
 
+static char game_choose_starting_player(void) {
+    int choice;
+
+    while (1) {
+        msg_choose_player();
+        int_number_input(&choice);
+
+        if (choice == 1) return 'X';
+        if (choice == 2) return 'O';
+
+        input_error();
+    }
+}
+
 static int game_end(void) {
     int choice;
 
@@ -106,9 +124,9 @@ static int game_end(void) {
 
 //-------------------------------------------------//
 
-static void pvp_game_loop(Board *board) {
+static void pvp_game_loop(Board *board, char starting_player) {
 
-    char current_player = 'X';
+    char current_player = starting_player;
     int running = 1;
 
     while (running) {
@@ -117,9 +135,26 @@ static void pvp_game_loop(Board *board) {
     }
 }
 
-static void pvc_game_loop(Board *board){
-    (void)board;
-    msg_not_implemented();
+static void pvc_game_loop(Board *board, char human_player) {
+
+    char cpu_player = (human_player == 'X') ? 'O' : 'X';
+    char current_player = 'X';
+    int running = 1;
+
+    while (running) {
+
+        if (current_player == human_player) {
+            running = game_player_turn(board, human_player);
+        } 
+        else {
+            msg_cpu_turn(cpu_player);
+            //not finished
+            msg_not_implemented();
+            return;
+        }
+
+        current_player = (current_player == 'X') ? 'O' : 'X';
+    }
 }
 
 //-------------------------------------------------//

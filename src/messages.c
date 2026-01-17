@@ -85,3 +85,6 @@ void msg_board_size(void){
     printf("\nEnter the board size: ");
 }
 
+void msg_cpu_turn(char cpu_player) {
+    printf("\nCPU turn (%c)\n", cpu_player);
+}
