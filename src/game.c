@@ -174,6 +174,8 @@ static void pvc_game_loop(Board *board, char human_player, AIDifficulty difficul
         else {
             msg_cpu_turn(cpu_player);
 
+            SLEEP_MS(1000);
+            
             switch (difficulty) {
                 case AI_EASY:
                     cpu_easy(board, cpu_player);
