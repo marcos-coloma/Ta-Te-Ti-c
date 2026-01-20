@@ -91,8 +91,8 @@ void msg_cpu_turn(char cpu_player) {
 
 void msg_choose_player(void) {
     printf("\nChoose starting player:\n");
-    printf("1) X\n");
-    printf("2) O\n");
+    printf("0) X\n");
+    printf("1) O\n");
 }
 
 void msg_choose_difficulty(void) {

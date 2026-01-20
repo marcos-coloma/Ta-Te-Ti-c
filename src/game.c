@@ -125,8 +125,8 @@ static char game_choose_starting_player(void) {
         msg_choose_player();
         int_number_input(&choice);
 
-        if (choice == 1) return 'X';
-        if (choice == 2) return 'O';
+        if (choice == 0) return 'X';
+        if (choice == 1) return 'O';
 
         input_error();
     }
@@ -172,27 +172,35 @@ static void pvc_game_loop(Board *board, char human_player, AIDifficulty difficul
         if (current_player == human_player) {
             running = game_player_turn(board, human_player);
         } 
+        
         else {
             msg_cpu_turn(cpu_player);
-
             SLEEP_MS(1000);
 
             switch (difficulty) {
                 case AI_NORMAL:
                     cpu_normal(board, cpu_player);
                     break;
-
                 case AI_HARD:
                     cpu_hard(board, cpu_player);
                     break;
             }
 
             board_print(board);
+
+            if (board_check_winner(board, cpu_player)) {
+                msg_player_wins(cpu_player);
+                running = 0;
+            } else if (board_is_full(board)) {
+                msg_game_draw();
+                running = 0;
+            }
         }
 
         current_player = (current_player == 'X') ? 'O' : 'X';
     }
 }
+
 //-------------------------------------------------//
 
 static int game_player_turn(Board *board, char player) {
