@@ -1,0 +1,6 @@
+# Archivos compilados
+*.o
+*.exe
+
+# Carpeta build
+/build/
