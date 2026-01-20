@@ -2,5 +2,6 @@
 *.o
 *.exe
 
-# Carpeta build
-/build/
+# Carpeta de salida
+build/
+bin/
