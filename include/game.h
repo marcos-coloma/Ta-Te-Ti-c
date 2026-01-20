@@ -16,9 +16,8 @@ typedef enum {
 } GameMode;
 
 typedef enum {
-    AI_EASY = 0,
-    AI_NORMAL,
-    AI_HARD
+    AI_NORMAL = 0,
+    AI_HARD,
 } AIDifficulty;
 
 

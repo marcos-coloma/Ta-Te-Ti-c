@@ -90,8 +90,8 @@ static AIDifficulty game_choose_ai_difficulty(void) {
         msg_choose_difficulty();
         int_number_input(&choice);
 
-        if (choice >= 0 && choice <= 2)
-            return (AIDifficulty)choice;
+        if (choice == 0) return AI_NORMAL;
+        if (choice == 1) return AI_HARD;
 
         input_error();
     }
@@ -176,19 +176,15 @@ static void pvc_game_loop(Board *board, char human_player, AIDifficulty difficul
             msg_cpu_turn(cpu_player);
 
             SLEEP_MS(1000);
-            
-            switch (difficulty) {
-                case AI_EASY:
-                    cpu_easy(board, cpu_player);
-                    break;
 
+            switch (difficulty) {
                 case AI_NORMAL:
                     cpu_normal(board, cpu_player);
                     break;
 
                 case AI_HARD:
-                    msg_not_implemented();
-                    return;
+                    cpu_hard(board, cpu_player);
+                    break;
             }
 
             board_print(board);
@@ -197,7 +193,6 @@ static void pvc_game_loop(Board *board, char human_player, AIDifficulty difficul
         current_player = (current_player == 'X') ? 'O' : 'X';
     }
 }
-
 //-------------------------------------------------//
 
 static int game_player_turn(Board *board, char player) {
