@@ -6,6 +6,7 @@
 #include "messages.h"
 #include "ai.h"
 
+/* Game lifecycle*/
 static GameMode game_menu(void);
 static AIDifficulty game_choose_ai_difficulty(void);
 
@@ -13,9 +14,11 @@ static void game_start(Board *board);
 static char game_choose_starting_player(void);
 static int game_end(void);
 
+/* Game loops*/
 static void pvp_game_loop(Board *board, char starting_player);
 static void pvc_game_loop(Board *board, char human_player, AIDifficulty difficulty);
 
+/* Player / CPU interaction*/
 static int game_player_turn(Board *board, char player);
 static void game_get_move(int *row, int *col);
 static int game_apply_move(Board *board, int row, int col, char player);

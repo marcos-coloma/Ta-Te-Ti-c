@@ -42,7 +42,6 @@ void cpu_hard(Board *board, char cpu_player) {
     cpu_normal(board, cpu_player);
 }
 
-
 static int try_move(Board *board, int row, int col, char player) {
     int index = row * board->size + col;
 
@@ -55,4 +54,3 @@ static int try_move(Board *board, int row, int col, char player) {
 
     return win;
 }
-//--------------------------------------------------------//

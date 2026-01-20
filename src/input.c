@@ -5,7 +5,7 @@
 #include "messages.h"
 
 void int_number_input(int *value_pointer) {
-    char buffer[100];
+    char buffer[32];
     int valid = 0;
 
     do {
