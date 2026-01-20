@@ -4,6 +4,7 @@
 #include "board.h"
 #include "input.h"
 #include "messages.h"
+#include "ai.h"
 
 static GameMode game_menu(void);
 static AIDifficulty game_choose_ai_difficulty(void);
@@ -19,8 +20,6 @@ static int game_player_turn(Board *board, char player);
 static void game_get_move(int *row, int *col);
 static int game_apply_move(Board *board, int row, int col, char player);
 
-static void cpu_easy(Board *board, char cpu_player);
-static void cpu_normal(Board *board, char cpu_player);
 
 
 //-------------------------------------------------//
@@ -58,6 +57,8 @@ void game_run(void) {
                 input_error();
                 break;
         }
+
+        board_free(&board); 
 
         if (!game_end()) {
             break;
@@ -242,20 +243,3 @@ static int game_apply_move(Board *board, int row, int col, char player) {
     return board_place(board, row, col, player);
 }
 
-
-//-------------------------------------------------//
-
-
-static void cpu_easy(Board *board, char cpu_player) {
-    int row, col;
-    do {
-        row = rand() % board->size;
-        col = rand() % board->size;
-    } while (!board_is_empty(board, row, col));
-    board_place(board, row, col, cpu_player);
-}
-
-static void cpu_normal(Board *board, char cpu_player) {
-    //sin hacer
-    cpu_easy(board, cpu_player);
-}

@@ -1,8 +1,9 @@
-#ifndef INPUT_H
-#define INPUT_H
+#ifndef AI_H
+#define AI_H
 
 #include "board.h"
 
-void ai_random_move(Board *board, char ai_symbol);
+void cpu_easy(Board *board, char cpu_player);
+void cpu_normal(Board *board, char cpu_player);
 
 #endif

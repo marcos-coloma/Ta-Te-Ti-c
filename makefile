@@ -27,7 +27,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
 
 # Object files
-OBJ = build/main.o build/game.o build/board.o build/input.o build/messages.o
+OBJ = build/main.o build/game.o build/board.o build/input.o build/messages.o build/ai.o
 
 # Final executable
 TARGET = build/tic-tac-toe
