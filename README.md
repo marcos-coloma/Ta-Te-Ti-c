@@ -1,4 +1,4 @@
-# Tic-Tac-Toe en C
+# Ta-Te-Ti en C
 
 Este proyecto es un Tateti hecho en C
 
