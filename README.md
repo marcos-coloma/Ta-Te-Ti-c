@@ -10,4 +10,10 @@ La CPU tiene 2 dificultades:
 - Modo normal: ejecuta movimientos aleatorios
 - Modo dificil: juega de forma mas inteligente, priorizando bloquear jugadas ganadoras.
 
-El proyecto esta terminado, no van a haber mas actualizaciones
+Para compilar el proyecto:
+- mingw32-make
+
+Para ejecutar la aplicación:
+- ./build/db_test
+
+nota: si no podes compilar o ejecutar fijate el makefile
