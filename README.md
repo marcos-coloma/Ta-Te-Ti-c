@@ -14,6 +14,6 @@ Para compilar el proyecto:
 - mingw32-make
 
 Para ejecutar la aplicación:
-- ./build/db_test
+- ./build/tic-tac-toe
 
 nota: si no podes compilar o ejecutar fijate el makefile
